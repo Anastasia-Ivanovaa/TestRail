@@ -3,7 +3,8 @@
 ---
 ### Login page
 
-1. Login into application.
+1. Login into application with valid data.
+2. Login into application with invalid data.
 
 ### Dashboard page
 
