@@ -8,9 +8,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import pages.AddProjectPage;
-import pages.DashboardPage;
-import pages.LoginPage;
+import pages.*;
 import utils.AllureUtils;
 import utils.PropertyReader;
 
@@ -20,6 +18,8 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected DashboardPage dashboardPage;
     protected AddProjectPage addProjectPage;
+    protected ProjectsPage projectsPage;
+    protected ConfirmationDeleteModal confirmationDeleteModal;
 
     String email = System.getProperty("email", PropertyReader.getProperty("email"));
     String password = System.getProperty("password", PropertyReader.getProperty("password"));
@@ -34,6 +34,8 @@ public class BaseTest {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         addProjectPage = new AddProjectPage(driver);
+        projectsPage = new ProjectsPage(driver);
+        confirmationDeleteModal = new ConfirmationDeleteModal(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
