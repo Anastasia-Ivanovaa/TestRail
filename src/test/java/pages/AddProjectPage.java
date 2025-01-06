@@ -1,16 +1,19 @@
 package pages;
 
+import dto.Project;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import wrappers.Input;
+import wrappers.Picklist;
+import wrappers.RadioButton;
 
 public class AddProjectPage extends BasePage {
 
     private final By ADD_PROJECT_BUTTON = By.id("accept");
-    private final By NAME_FIELD = By.id("name");
-    private final By ANNOUNCEMENT_FIELD = By.id("announcement_display");
-    private final By SHOW_ANNOUNCEMENT_CHECKBOX = By.id("show_announcement");
-    private final String PROJECT_TYPE_PATTERN = "//input[@type='radio']/preceding::strong[text()='%s']";
+    private final String TAB_PATTERN =
+            "//a[normalize-space(text())='%s']";
 
     public AddProjectPage(WebDriver driver) {
         super(driver);
@@ -31,12 +34,19 @@ public class AddProjectPage extends BasePage {
     }
 
     @Step("Fill the fields for creating a new project '{projectName}'")
-    public void fillForm(String projectName, String announcement, String radioButtonName) {
-        driver.findElement(NAME_FIELD).sendKeys(projectName);
-        driver.findElement(ANNOUNCEMENT_FIELD).sendKeys(announcement);
-        driver.findElement(SHOW_ANNOUNCEMENT_CHECKBOX).click();
-        By button = By.xpath(String.format(PROJECT_TYPE_PATTERN, radioButtonName));
-        driver.findElement(button).click();
+    public AddProjectPage fillForm(Project project) {
+
+        new Input(driver, "Name").write(project.getName());
+        new RadioButton(driver, "Use a single repository with baseline support").click();
+//        By button = By.xpath(String.format(TAB_PATTERN, "Defects"));
+//        driver.findElement(button).click();
+//        new Picklist(driver, "Defect Plugin").select(project.getDefectPlugin());
+        return this;
+    }
+
+    @Step("Click on ADD PROJECT button")
+    public ProjectsPage clickAddProjectButton() {
         driver.findElement(ADD_PROJECT_BUTTON).click();
+        return new ProjectsPage(driver);
     }
 }

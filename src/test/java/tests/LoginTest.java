@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(testName = "Login into the application", description = "Check positive login")
     @Description("Check positive login")
     public void validLogin() {
         loginPage.open()
@@ -26,7 +26,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "LoginData")
+    @Test(dataProvider = "LoginData", testName = "Invalid login data", description = "Check that user cannot login with invalid data")
     @Description("Negative login check")
     public void invalidLogin(String email, String password, String expectedMessage) {
         loginPage.open()
