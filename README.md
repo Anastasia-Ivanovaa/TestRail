@@ -12,13 +12,13 @@
 2. Delete Project. 
 
 ### Project page (Test Cases tab)
-1. Add Test Case (Actions bar). 
-2. Delete Test Case (Actions bar).
+1. Add Test Case (Actions sidebar). 
+2. Delete Test Case (Actions sidebar).
 3. Check Display Deleted TestCases toggle.
 4. Assign selected Test Case (Actions bar). 
 5. Assign all in current view Test Case (Actions bar).
-6. Edit Test Case (Actions bar). 
-7. Delete Test Case (Actions bar).
+6. Edit Test Case (actions bar). 
+7. Delete Test Case (actions bar).
 8. Add new column to the test cases table.
 9. Sort Test Cases.
 10. Filter Test Cases.

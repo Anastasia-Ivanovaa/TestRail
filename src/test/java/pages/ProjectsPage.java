@@ -20,16 +20,6 @@ public class ProjectsPage extends BasePage {
         super(driver);
     }
 
-    @Override
-    public ProjectsPage open() {
-        return null;
-    }
-
-    @Override
-    public ProjectsPage isPageOpened() {
-        return null;
-    }
-
     @Step("Get the text message")
     public String getSuccessMessage() {
         return driver.findElement(SUCCESS_MESSAGE).getText();

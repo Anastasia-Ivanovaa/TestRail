@@ -15,12 +15,6 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    @Step("Check that Login page is opened")
-    public LoginPage isPageOpened() {
-        driver.findElement(LOGIN_BUTTON);
-        return this;
-    }
-
     @Step("Open Login page")
     public LoginPage open() {
         driver.get("https://ivaonova.testrail.io/");

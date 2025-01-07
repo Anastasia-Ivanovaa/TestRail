@@ -20,6 +20,9 @@ public class BaseTest {
     protected AddProjectPage addProjectPage;
     protected ProjectsPage projectsPage;
     protected ConfirmationDeleteModal confirmationDeleteModal;
+    protected ProjectViewPage projectViewPage;
+    protected TestCasePage testCasePage;
+
 
     String email = System.getProperty("email", PropertyReader.getProperty("email"));
     String password = System.getProperty("password", PropertyReader.getProperty("password"));
@@ -36,6 +39,8 @@ public class BaseTest {
         addProjectPage = new AddProjectPage(driver);
         projectsPage = new ProjectsPage(driver);
         confirmationDeleteModal = new ConfirmationDeleteModal(driver);
+        projectViewPage = new ProjectViewPage(driver);
+        testCasePage = new TestCasePage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")

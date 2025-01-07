@@ -19,20 +19,6 @@ public class AddProjectPage extends BasePage {
         super(driver);
     }
 
-    @Override
-    @Step("Open Add Project page")
-    public AddProjectPage open() {
-        driver.get("https://ivaonova.testrail.io/index.php?/admin/projects/add/1");
-        return this;
-    }
-
-    @Override
-    @Step("Check that Add Project page is opened")
-    public AddProjectPage isPageOpened() {
-        driver.findElement(ADD_PROJECT_BUTTON);
-        return this;
-    }
-
     @Step("Fill the fields for creating a new project '{projectName}'")
     public AddProjectPage fillForm(Project project) {
 

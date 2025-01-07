@@ -11,9 +11,8 @@ public class LoginTest extends BaseTest {
     @Description("Check positive login")
     public void validLogin() {
         loginPage.open()
-                .isPageOpened()
                 .login(email, password);
-        dashboardPage.isPageOpened();
+        Assert.assertEquals(dashboardPage.getPageElement(), "DASHBOARD", "Dashboard page is NOT opened.");
     }
 
     @DataProvider(name = "LoginData")
@@ -30,7 +29,6 @@ public class LoginTest extends BaseTest {
     @Description("Negative login check")
     public void invalidLogin(String email, String password, String expectedMessage) {
         loginPage.open()
-                .isPageOpened()
                 .login(email, password);
         String errorMessage = loginPage.getErrorMessage();
         Assert.assertEquals(errorMessage, expectedMessage, "The message is not correct");

@@ -15,19 +15,8 @@ public class ConfirmationDeleteModal extends BasePage {
         super(driver);
     }
 
-    @Override
-    public ConfirmationDeleteModal open() {
-        return null;
-    }
-
-    @Override
-    public ConfirmationDeleteModal isPageOpened() {
-        driver.findElement(CANCEL_BUTTON);
-        return this;
-    }
-
     @Step("Confirm project deleting")
-    public void confirmAndDeleteProject(){
+    public void confirmAndDeleteProject() {
         driver.findElement(YES_CHECKBOX).click();
         driver.findElement(OK_BUTTON).click();
     }
