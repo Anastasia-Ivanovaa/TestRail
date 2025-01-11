@@ -2,11 +2,13 @@ package pages;
 
 import dto.TestCase;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import wrappers.Picklist;
 import wrappers.Textarea;
 
+@Log4j2
 public class AddTestCasePage extends BasePage {
 
     private final By ADD_TEST_CASE_BUTTON = By.id("accept");
@@ -18,6 +20,7 @@ public class AddTestCasePage extends BasePage {
 
     @Step("Fill the fields for creating a new TEST CASE '{testCaseTitle}'")
     public TestCasePage fillForm(TestCase testCase, String testCaseTitle) {
+        log.info("Creating test case '{}' ", testCaseTitle);
         driver.findElement(TEST_CASE_TITLE).sendKeys(testCaseTitle);
         if (testCase.getSectionOption() != null) {
             new Picklist(driver, "Section").select(testCase.getSectionOption());

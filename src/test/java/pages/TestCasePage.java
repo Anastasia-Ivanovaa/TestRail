@@ -1,10 +1,14 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
+@Log4j2
 public class TestCasePage extends BasePage {
 
     private final By TEST_CASE_TITLE = By.xpath("//div[@data-testid='testCaseContentHeaderTitle']");
@@ -17,12 +21,18 @@ public class TestCasePage extends BasePage {
 
     @Step("Get the text message")
     public String getSuccessMessage() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_MESSAGE));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_MESSAGE));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("Success message isn't appeared ");
+        }
         return driver.findElement(SUCCESS_MESSAGE).getText();
     }
 
     @Step("Get the title of created test case")
     public String getTestCaseTitle() {
+        log.info("Get the title of created test case");
         return driver.findElement(TEST_CASE_TITLE).getText();
     }
 }
