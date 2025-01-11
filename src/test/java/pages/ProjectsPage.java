@@ -2,11 +2,8 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 
@@ -42,9 +39,9 @@ public class ProjectsPage extends BasePage {
     }
 
     @Step("Click on DELETE button next to project {projectName}")
-    public ConfirmationDeleteModal deleteProject(String projectName) {
+    public ConfirmationDeleteProjectModal deleteProject(String projectName) {
         By deleteProject = By.xpath(String.format(REMOVE_PROJECT_PATTERN, projectName));
         driver.findElement(deleteProject).click();
-        return new ConfirmationDeleteModal(driver);
+        return new ConfirmationDeleteProjectModal(driver);
     }
 }

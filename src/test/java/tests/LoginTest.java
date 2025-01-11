@@ -1,9 +1,10 @@
 package tests;
 
 import io.qameta.allure.Description;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
 
@@ -12,7 +13,9 @@ public class LoginTest extends BaseTest {
     public void validLogin() {
         loginPage.open()
                 .login(email, password);
-        Assert.assertEquals(dashboardPage.getPageElement(), "DASHBOARD", "Dashboard page is NOT opened.");
+    assertEquals(dashboardPage.getPageElement(),
+            "DASHBOARD",
+            "Dashboard page is NOT opened.");
     }
 
     @DataProvider(name = "LoginData")
@@ -31,6 +34,6 @@ public class LoginTest extends BaseTest {
         loginPage.open()
                 .login(email, password);
         String errorMessage = loginPage.getErrorMessage();
-        Assert.assertEquals(errorMessage, expectedMessage, "The message is not correct");
+        assertEquals(errorMessage, expectedMessage, "The message is not correct");
     }
 }

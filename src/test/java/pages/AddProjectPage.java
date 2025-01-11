@@ -1,32 +1,23 @@
 package pages;
 
-import dto.Project;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import wrappers.Input;
-import wrappers.Picklist;
-import wrappers.RadioButton;
 
 public class AddProjectPage extends BasePage {
 
     private final By ADD_PROJECT_BUTTON = By.id("accept");
-    private final String TAB_PATTERN =
-            "//a[normalize-space(text())='%s']";
+    private final By NAME_FIELD = By.id("name");
+    private final By SINGLE_REPOSITORY_FOR_ALL_CASES_BUTTON = By.id("suite_mode_single");
 
     public AddProjectPage(WebDriver driver) {
         super(driver);
     }
 
     @Step("Fill the fields for creating a new project '{projectName}'")
-    public AddProjectPage fillForm(Project project) {
-
-        new Input(driver, "Name").write(project.getName());
-        new RadioButton(driver, "Use a single repository with baseline support").click();
-//        By button = By.xpath(String.format(TAB_PATTERN, "Defects"));
-//        driver.findElement(button).click();
-//        new Picklist(driver, "Defect Plugin").select(project.getDefectPlugin());
+    public AddProjectPage fillForm(String projectName) {
+        driver.findElement(NAME_FIELD).sendKeys(projectName);
+        driver.findElement(SINGLE_REPOSITORY_FOR_ALL_CASES_BUTTON).click();
         return this;
     }
 

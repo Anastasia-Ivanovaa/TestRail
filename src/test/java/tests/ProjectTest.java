@@ -1,6 +1,5 @@
 package tests;
 
-import dto.Project;
 import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -9,22 +8,21 @@ public class ProjectTest extends BaseTest {
 
     SoftAssert softAssert = new SoftAssert();
 
-    Project project = Project.builder()
-            .name("Test 40")
-            .projectType("Use a single repository with baseline support")
-            .build();
-
     @Test(testName = "Add a new project", description = "Check that a new project is created")
     @Description("Check that project is created")
     public void createProject() {
         loginPage.open()
                 .login(email, password)
                 .createProject()
-                .fillForm(project)
+                .fillForm("New project")
                 .clickAddProjectButton();
         String message = projectsPage.getSuccessMessage();
-        softAssert.assertEquals(message, "Successfully added the new project.", "Success message is not valid");
-        softAssert.assertTrue(projectsPage.isProjectExisting("Test 38"), "Project is NOT created");
+        softAssert.assertEquals(message,
+                "Successfully added the new project.",
+                "Success message is not valid");
+        softAssert.assertTrue(projectsPage.isProjectExisting(
+                "New project"),
+                "Project is NOT created");
         softAssert.assertAll();
     }
 
@@ -34,13 +32,17 @@ public class ProjectTest extends BaseTest {
         loginPage.open()
                 .login(email, password)
                 .createProject()
-                .fillForm(project)
+                .fillForm("New project2")
                 .clickAddProjectButton()
-                .deleteProject("Test 40")
+                .deleteProject("New project2")
                 .confirmAndDeleteProject();
         String message = projectsPage.getSuccessMessage();
-        softAssert.assertEquals(message, "Successfully deleted the project.", "Success message is not valid");
-        softAssert.assertFalse(projectsPage.isProjectExisting("Test 40"), "Project is NOT deleted");
+        softAssert.assertEquals(message,
+                "Successfully deleted the project.",
+                "Success message is not valid");
+        softAssert.assertFalse(projectsPage.isProjectExisting(
+                "New project2"),
+                "Project is NOT deleted");
         softAssert.assertAll();
     }
 }

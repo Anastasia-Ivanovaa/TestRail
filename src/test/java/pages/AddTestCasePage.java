@@ -4,9 +4,7 @@ import dto.TestCase;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import wrappers.Picklist;
-import wrappers.PicklistTC;
 import wrappers.Textarea;
 
 public class AddTestCasePage extends BasePage {
@@ -22,22 +20,22 @@ public class AddTestCasePage extends BasePage {
     public TestCasePage fillForm(TestCase testCase, String testCaseTitle) {
         driver.findElement(TEST_CASE_TITLE).sendKeys(testCaseTitle);
         if (testCase.getSectionOption() != null) {
-            new PicklistTC(driver, "Section").select(testCase.getSectionOption());
+            new Picklist(driver, "Section").select(testCase.getSectionOption());
         }
         if (testCase.getSectionOption() != null) {
-            new PicklistTC(driver, "Section").select(testCase.getSectionOption());
+            new Picklist(driver, "Section").select(testCase.getSectionOption());
         }
         if (testCase.getTemplateOption() != null) {
-            new PicklistTC(driver, "Template").select(testCase.getTemplateOption());
+            new Picklist(driver, "Template").select(testCase.getTemplateOption());
         }
         if (testCase.getTypeOption() != null) {
-            new PicklistTC(driver, "Type").select(testCase.getTypeOption());
+            new Picklist(driver, "Type").select(testCase.getTypeOption());
         }
         if (testCase.getPriorityOption() != null) {
-            new PicklistTC(driver, "Priority").select(testCase.getPriorityOption());
+            new Picklist(driver, "Priority").select(testCase.getPriorityOption());
         }
         if (testCase.getAutomationTypeOption() != null) {
-            new PicklistTC(driver, "Automation Type").select(testCase.getAutomationTypeOption());
+            new Picklist(driver, "Automation Type").select(testCase.getAutomationTypeOption());
         }
         if (testCase.getPreconditions() != null) {
             new Textarea(driver, "Preconditions").write(testCase.getPreconditions());
