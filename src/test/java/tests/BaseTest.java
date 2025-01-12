@@ -43,7 +43,7 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("edge")) {
             EdgeOptions options = new EdgeOptions();
             options.addArguments("--headless");
-            driver = new EdgeDriver();
+            driver = new EdgeDriver(options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--headless");
