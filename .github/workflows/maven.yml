@@ -10,8 +10,7 @@ name: Test Runner
 
 on:
   push:
-    branches: [ "main"
-                - "feat-tests" ]
+    branches: [ "main" ]
 
   pull_request:
     branches: [ "main" ]
