@@ -4,10 +4,12 @@ import jdk.jfr.Description;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 import pages.*;
 import utils.AllureUtils;
 import utils.PropertyReader;
@@ -28,13 +30,22 @@ public class BaseTest {
     String email = System.getProperty("email", PropertyReader.getProperty("email"));
     String password = System.getProperty("password", PropertyReader.getProperty("password"));
 
+    @Parameters({"browser"})
     @BeforeMethod(description = "Open browser")
     @Description("Open browser")
-    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--disable-notifications");
-        driver = new ChromeDriver(options);
+    public void setUp(@Optional("chrome") String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            options.addArguments("--disable-notifications");
+            driver = new ChromeDriver(options);
+        } else if (browser.equalsIgnoreCase("edge")) {
+            driver = new EdgeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            driver = new FirefoxDriver(options);
+        }
+
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         addProjectPage = new AddProjectPage(driver);
