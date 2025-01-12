@@ -10,9 +10,15 @@ name: Test Runner
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main"
+                - "feat-tests" ]
+
   pull_request:
     branches: [ "main" ]
+
+env:
+  USERNAME: ${{secrets.EMAIL}}
+  PASSWORD: ${{secrets.PASSWORD}}
 
 jobs:
   build:
@@ -28,4 +34,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test run
-      run: mvn clean test
+      run: mvn clean test -DsuiteXmlFile='src/test/resources/CrossBrowser.xml' -Duser=$USERNAME -Dpassword=$PASSWORD

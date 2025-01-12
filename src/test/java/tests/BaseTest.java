@@ -27,8 +27,8 @@ public class BaseTest {
     protected TestCasesListPage testCasesListPage;
     protected ConfirmationDeleteTestCaseModal confirmationDeleteTestCaseModal;
 
-    String email = System.getProperty("email", PropertyReader.getProperty("email"));
-    String password = System.getProperty("password", PropertyReader.getProperty("password"));
+    String email = System.getProperty("email");
+    String password = System.getProperty("password");
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Open browser")
