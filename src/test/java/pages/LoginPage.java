@@ -12,7 +12,6 @@ public class LoginPage extends BasePage {
     private final By PASSWORD_INPUT = By.id("password");
     private final By LOGIN_BUTTON = By.id("button_primary");
     private final By ERROR_MESSAGE = By.xpath("//div[contains(@class, 'loginpage-message')] ");
-    private final String URL = "https://ivaonova.testrail.io/";
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -21,7 +20,7 @@ public class LoginPage extends BasePage {
     @Step("Open Login page")
     public LoginPage open() {
         log.info("Login page is opened");
-        driver.get(URL);
+        driver.get(url);
         return this;
     }
 

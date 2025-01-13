@@ -16,11 +16,14 @@ import java.util.ArrayList;
 public class TestCasesListPage extends BasePage {
 
     private final String TEST_CASE_ROW = "//td//span[text() = '%s']//ancestor::tr[contains(@class, 'caseRow')]";
-    private final String TEST_CASE_TITLEt = "//tr[contains(@class, 'caseRow')]//td//span[text() = '%s']";
-    private final By TEST_CASE_TITLE =
+    private final String TEST_CASE_TITLE = "//tr[contains(@class, 'caseRow')]//td//span[text() = '%s']";
+    private final String TOOLBAR_BUTTON = "//div[@id= 'contentToolbar']//a[contains(@class,'toolbar-button')]/span[text()='%s']";
+    private final By TITLE_COLUMN = By.xpath("//a[@title='Title']/span[text()='Title']");
+    private final By EXISTING_TEST_CASE_TITLE =
             By.xpath("//tr[not (contains(@class,'deleted-case'))]//span[@data-testid='sectionCaseTitle']");
     private final By ADD_CASE_BUTTON = By.xpath("//a[@data-testid='suiteAddCaseLink']");
     private final String DELETE_BUTTON = "/td/a[@class='deleteLink']";
+
 
     public TestCasesListPage(WebDriver driver) {
         super(driver);
@@ -28,11 +31,11 @@ public class TestCasesListPage extends BasePage {
 
     @Step("Check that Test Case tab is opened")
     public TestCasesListPage isOpened() {
-        try{
-        wait.until(ExpectedConditions.visibilityOfElementLocated(TEST_CASE_TITLE));}
-        catch(TimeoutException e){
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE_COLUMN));
+        } catch (TimeoutException e) {
             log.error(e.getMessage());
-            Assert.fail("Test cases page isn't appeared ");
+            Assert.fail("Test cases page isn't opened ");
         }
         return this;
     }
@@ -54,20 +57,25 @@ public class TestCasesListPage extends BasePage {
     @Step("Check whether test case with title '{testCaseTitle}' was deleted")
     public boolean isTestCaseExisting(String testCaseTitle) {
         log.info("Checking whether test case '{}' shown in the list", testCaseTitle);
-        By testCase = By.xpath(String.format(TEST_CASE_TITLEt, testCaseTitle));
+        By testCase = By.xpath(String.format(TEST_CASE_TITLE, testCaseTitle));
         WebElement deletedTestCase = driver.findElement(testCase);
-        return wait.until(ExpectedConditions.invisibilityOf(deletedTestCase));
+        wait.until(ExpectedConditions.invisibilityOf(deletedTestCase));
 
-//        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(TEST_CASE_TITLE));
-//
-//        boolean result = false;
-//        for (WebElement testCaseName : testCasesList) {
-//            if (testCaseName.getText().equals(testCaseTitle)) {
-//                result = true;
-//                break;
-//            }
-//        }
-//        return result;
-//    }
+        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(EXISTING_TEST_CASE_TITLE));
+
+        boolean result = false;
+        for (WebElement testCaseName : testCasesList) {
+            if (testCaseName.getText().equals(testCaseTitle)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+
+    public void clickOnToolbarButton(String buttonName) {
+        By button = By.xpath(String.format(TOOLBAR_BUTTON, buttonName));
+        driver.findElement(button).click();
     }
 }

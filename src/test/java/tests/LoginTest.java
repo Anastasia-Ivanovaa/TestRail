@@ -4,6 +4,7 @@ import io.qameta.allure.Description;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import tests.base.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,7 +13,7 @@ public class LoginTest extends BaseTest {
 
     @Test(testName = "Login into the application", description = "Check positive login")
     @Description("Check positive login")
-    public void validLogin() {
+    public void checkValidLogin() {
         loginPage.open()
                 .login(email, password);
         assertEquals(dashboardPage.getPageElement(),
@@ -32,7 +33,7 @@ public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "LoginData", testName = "Invalid login data", description = "Check that user cannot login with invalid data")
     @Description("Negative login check")
-    public void invalidLogin(String email, String password, String expectedMessage) {
+    public void checkInvalidLogin(String email, String password, String expectedMessage) {
         loginPage.open()
                 .login(email, password);
         String errorMessage = loginPage.getErrorMessage();
