@@ -27,7 +27,7 @@ public class ProjectsPage extends BasePage {
 
     @Step("Check that project {projectName} is shown in projects list")
     public boolean isProjectExisting(String projectName) {
-        log.info("Project is created");
+        log.info("Find the name of created project in the projects list");
         ArrayList<WebElement> projectsList = new ArrayList<>(driver.findElements(PROJECT_NAME));
         boolean result = false;
         for (WebElement nameProject : projectsList) {
