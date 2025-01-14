@@ -1,11 +1,13 @@
 package tests;
 
+import dto.EditTestCase;
 import dto.TestCase;
 import io.qameta.allure.Description;
 import org.testng.annotations.Test;
+import pages.TestCasesListPage;
 import tests.base.BaseTest;
 
-import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.*;
 
 public class TestCaseTest extends BaseTest {
 
@@ -17,8 +19,12 @@ public class TestCaseTest extends BaseTest {
             .preconditions("Test")
             .build();
 
+    EditTestCase editTestCase = EditTestCase.builder()
+            .priority("Medium")
+            .build();
+
     String projectName = "Test";
-    String testCaseTitle = "Test Case 3";
+    String testCaseTitle = "Neww";
 
     @Test(testName = "Add a new test case", description = "Check that a new test case can be created from sidebar")
     @Description("Check that test case is created")
@@ -45,8 +51,8 @@ public class TestCaseTest extends BaseTest {
         loginPage.open()
                 .login(email, password)
                 .openProject(projectName)
-                .switchTab("Test Cases");
-        testCasesListPage.clickOnDeleteButton(testCaseTitle)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .clickOnDeleteButton(testCaseTitle)
                 .isOpened()
                 .clickOnButton("Mark as Deleted")
                 .isOpened();
@@ -59,16 +65,36 @@ public class TestCaseTest extends BaseTest {
     public void checkDisplayDeletedTestCase() {
         loginPage.open()
                 .login(email, password)
-                .openProject("Test")
-                .switchTab("Test Cases");
-        testCasesListPage.clickOnDeleteButton("Test Case D")
+                .openProject(projectName)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .clickOnDeleteButton(testCaseTitle)
                 .isOpened()
                 .clickOnButton("Mark as Deleted")
                 .isOpened()
-                .clickOnToolbarButton("Display Deleted Test Cases");
-        //нужно проверить есть ли тест кейс в списке
-
-
+                .clickOnToolbarButton("Display Deleted Test Cases")
+                .isOpened();
+        boolean result = testCasesListPage.isTestCaseDeleted(testCaseTitle);
+        assertTrue(result, "Test case is NOT marked as deleted");
     }
 
+    @Test(testName = "Edit test case", description = "Check that test case can be edited")
+    @Description("Check that test case is edited")
+    public void checkEditTestCase() {
+        loginPage.open()
+                .login(email, password)
+                .openProject(projectName)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .putTickIntoCheckbox(testCaseTitle)
+                .clickOnToolbarButton("Edit")
+                .selectOption("Edit selected");
+        editTestCasesSelectedPage
+                .isOpened()
+                .fillEditForm(editTestCase)
+                .isOpened()
+                .confirmChanges();
+        String successEditMessage = testCasesListPage.getSuccessMessage();
+        assertEquals(successEditMessage,
+                "Successfully updated the test cases.",
+                "The test case changes have NOT saved");
+    }
 }

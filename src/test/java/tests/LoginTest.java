@@ -1,14 +1,12 @@
 package tests;
 
 import io.qameta.allure.Description;
-import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
-@Log4j2
 public class LoginTest extends BaseTest {
 
     @Test(testName = "Login into the application", description = "Check positive login")
