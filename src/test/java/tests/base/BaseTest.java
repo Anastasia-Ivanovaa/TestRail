@@ -1,7 +1,6 @@
 package tests.base;
 
 import jdk.jfr.Description;
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,16 +8,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 import utils.AllureUtils;
 import utils.PropertyReader;
-
-import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -32,6 +27,8 @@ public class BaseTest {
     protected TestCasePage testCasePage;
     protected TestCasesListPage testCasesListPage;
     protected ConfirmationDeleteTestCaseModal confirmationDeleteTestCaseModal;
+    protected EditTestCasesSelectedPage editTestCasesSelectedPage;
+    protected ReviewChangesModal reviewChangesModal;
 
     protected String email = System.getProperty("email");
     protected String password = System.getProperty("password");
@@ -66,6 +63,8 @@ public class BaseTest {
         testCasePage = new TestCasePage(driver);
         testCasesListPage = new TestCasesListPage(driver);
         confirmationDeleteTestCaseModal = new ConfirmationDeleteTestCaseModal(driver);
+        editTestCasesSelectedPage = new EditTestCasesSelectedPage(driver);
+        reviewChangesModal = new ReviewChangesModal(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")

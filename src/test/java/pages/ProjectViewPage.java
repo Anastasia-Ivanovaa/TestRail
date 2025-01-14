@@ -16,10 +16,15 @@ public class ProjectViewPage extends BasePage {
     }
 
     @Step("Open {tabName} tab")
-    public void switchTab(String tabName) {
+    public <T extends BasePage> T switchTab(String tabName, Class<T> pageClass) {
         log.info("Switching to '{}' tab", tabName);
-        By tab = By.xpath(String.format(TAB_NAME_PATTERN, tabName));
-        driver.findElement(tab).click();
+        By setOption = By.xpath(String.format(TAB_NAME_PATTERN, tabName));
+        driver.findElement(setOption).click();
+        try {
+            return pageClass.getDeclaredConstructor(WebDriver.class).newInstance(driver);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Step("Click on Add button in sidebar menu")

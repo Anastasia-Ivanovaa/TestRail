@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import wrappers.Picklist;
 
 import java.util.ArrayList;
 
@@ -21,8 +22,12 @@ public class TestCasesListPage extends BasePage {
     private final By TITLE_COLUMN = By.xpath("//a[@title='Title']/span[text()='Title']");
     private final By EXISTING_TEST_CASE_TITLE =
             By.xpath("//tr[not (contains(@class,'deleted-case'))]//span[@data-testid='sectionCaseTitle']");
+    private final By DELETED_TEST_CASE =
+            By.xpath("//tr[contains(@class,'deleted-case')]//span[@data-testid='sectionCaseTitle']");
     private final By ADD_CASE_BUTTON = By.xpath("//a[@data-testid='suiteAddCaseLink']");
     private final String DELETE_BUTTON = "/td/a[@class='deleteLink']";
+    private final String DROPDOWN_OPTION = "//div[@id='content-inner']//a[contains(text(),'%s')][contains(@class,'link-tooltip')]";
+    private final By SUCCESS_EDIT_MESSAGE = By.xpath("//div[@data-testid='messageSuccessDivBox']");
 
 
     public TestCasesListPage(WebDriver driver) {
@@ -73,9 +78,48 @@ public class TestCasesListPage extends BasePage {
         return result;
     }
 
+    @Step("Check whether test case with title '{testCaseTitle}' is displayed in the list")
+    public boolean isTestCaseDeleted(String testCaseTitle) {
+        log.info("Checking whether test case '{}' shown in the list of deleted test cases", testCaseTitle);
+        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(DELETED_TEST_CASE));
 
-    public void clickOnToolbarButton(String buttonName) {
+        boolean result = false;
+        for (WebElement testCaseName : testCasesList) {
+            if (testCaseName.getText().equals(testCaseTitle)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Step("Click on {buttonName} button")
+    public TestCasesListPage clickOnToolbarButton(String buttonName) {
+        log.info("Click on '{}' button", buttonName);
         By button = By.xpath(String.format(TOOLBAR_BUTTON, buttonName));
         driver.findElement(button).click();
+        return this;
+    }
+
+    @Step("Set tick into checkbox next to {testCaseName} test case")
+    public TestCasesListPage putTickIntoCheckbox(String testCaseName) {
+        log.info("Set tick into checkbox next to '{}' test case", testCaseName);
+        By testCase = By.xpath(String.format(TEST_CASE_ROW + "//input", testCaseName));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(testCase));
+        driver.findElement(testCase).click();
+        return this;
+    }
+
+    @Step("Select option {optionName} in the dropdown")
+    public void selectOption(String optionName) {
+        log.info("Click on '{}' option", optionName);
+        By option = By.xpath(String.format(DROPDOWN_OPTION, optionName));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(option));
+        driver.findElement(option).click();
+    }
+
+    @Step("Get success message after editing testcase")
+    public String getSuccessMessage() {
+        return driver.findElement(SUCCESS_EDIT_MESSAGE).getText();
     }
 }
