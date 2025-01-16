@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 public class ConfirmationDeleteProjectModal extends BasePage {
 
     private final By OK_BUTTON = By.xpath("//a[@data-testid='caseFieldsTabDeleteDialogButtonOk']");
-    private final By CANCEL_BUTTON = By.xpath("//a[@data-testid='deleteCaseDialogActionSecondary']");
     private final By YES_CHECKBOX = By.xpath(
             "//label/input[@data-testid='deleteCheckBoxTestId']//ancestor::div[@data-testid='caseFieldsTabDeleteDialogCheckbox']");
 

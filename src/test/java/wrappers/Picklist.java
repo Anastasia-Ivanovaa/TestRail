@@ -11,6 +11,7 @@ public class Picklist {
     String label;
     String LOCATOR_CREATE_TESTCASE = "//div[contains(@class,'column')]/label[normalize-space(text())='%s']//following-sibling::div";
     String LOCATOR_EDIT_TESTCASE = "//strong[contains(text(),'%s')]//ancestor::div[contains(@class, 'checkbox')]//following-sibling::div";
+    String LOCATOR_ASSIGN_MODAL = "//label[contains(text(),'%s')]//following-sibling::div";
     String OPTION = "//li[contains(text(),'%s')]";
 
     public Picklist(WebDriver driver, String label) {
@@ -31,6 +32,14 @@ public class Picklist {
         driver.findElement(By.xpath(String.format(LOCATOR_EDIT_TESTCASE, label)))
                 .click();
         driver.findElement(By.xpath(String.format(LOCATOR_EDIT_TESTCASE + OPTION, label,
+                option))).click();
+    }
+
+    public void selectAssign(String option) {
+        log.info("Selecting '{}' into picklist '{}'", option, label);
+        driver.findElement(By.xpath(String.format(LOCATOR_ASSIGN_MODAL, label)))
+                .click();
+        driver.findElement(By.xpath(String.format(LOCATOR_ASSIGN_MODAL + OPTION, label,
                 option))).click();
     }
 }

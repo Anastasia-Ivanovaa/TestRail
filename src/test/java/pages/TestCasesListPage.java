@@ -2,16 +2,14 @@ package pages;
 
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import wrappers.Picklist;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 @Log4j2
 public class TestCasesListPage extends BasePage {
@@ -28,6 +26,8 @@ public class TestCasesListPage extends BasePage {
     private final String DELETE_BUTTON = "/td/a[@class='deleteLink']";
     private final String DROPDOWN_OPTION = "//div[@id='content-inner']//a[contains(text(),'%s')][contains(@class,'link-tooltip')]";
     private final By SUCCESS_EDIT_MESSAGE = By.xpath("//div[@data-testid='messageSuccessDivBox']");
+    private final String COLUMN_NAME = "//tr[contains(@class,'sectionRow')]//span[text()='%s']";
+    private final By TABLE_HEADER = By.xpath("//tr[contains(@class, 'sectionRow')]");
 
 
     public TestCasesListPage(WebDriver driver) {
@@ -81,8 +81,11 @@ public class TestCasesListPage extends BasePage {
     @Step("Check whether test case with title '{testCaseTitle}' is displayed in the list")
     public boolean isTestCaseDeleted(String testCaseTitle) {
         log.info("Checking whether test case '{}' shown in the list of deleted test cases", testCaseTitle);
-        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(DELETED_TEST_CASE));
+//        By testCase = By.xpath(String.format(TEST_CASE_TITLE, testCaseTitle));
+//        WebElement deletedTestCase = driver.findElement(testCase);
+//        wait.until(ExpectedConditions.invisibilityOf(deletedTestCase));
 
+        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(DELETED_TEST_CASE));
         boolean result = false;
         for (WebElement testCaseName : testCasesList) {
             if (testCaseName.getText().equals(testCaseTitle)) {
@@ -118,8 +121,37 @@ public class TestCasesListPage extends BasePage {
         driver.findElement(option).click();
     }
 
-    @Step("Get success message after editing testcase")
+    @Step("Get success message after editing of Test case")
     public String getSuccessMessage() {
+        log.info("Get success message after editing of Test case");
         return driver.findElement(SUCCESS_EDIT_MESSAGE).getText();
+    }
+
+    @Step("Check whether column '{columnName}' is displayed in the table header")
+    public boolean isColumnAdded(String columnName) {
+        log.info("Checking whether column '{}' is displayed in the table header", columnName);
+        By columnTitle = By.xpath(String.format(COLUMN_NAME, columnName));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(columnTitle));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("Column is NOT appeared");
+        }
+        ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(columnTitle));
+        boolean result = false;
+        for (WebElement testCaseName : testCasesList) {
+            if (testCaseName.getText().equals(columnName)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Step("'Click on '{testcaseName}' test case ")
+    public TestCasePage openTestCase(String testcaseName) {
+        retryClick(String.format(TEST_CASE_TITLE, testcaseName));
+        return new TestCasePage(driver);
+//        By testcase = By.xpath(String.format(TEST_CASE_TITLE, testcaseName));
     }
 }

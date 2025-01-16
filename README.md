@@ -16,14 +16,12 @@
 2. Delete Test Case (Actions sidebar).
 3. Check Display Deleted TestCases toggle.
 4. Assign selected Test Case (Actions bar). 
-5. Assign all in current view Test Case (Actions bar).
-6. Edit Test Case (actions bar). 
-7. Delete Test Case (actions bar).
-8. Add new column to the test cases table.
-9. Sort Test Cases.
-10. Filter Test Cases.
-11. Move Test Case.
-12. Copy Test Case.
+5. Edit Test Case (actions bar). 
+6. Delete Test Case (actions bar).
+7. Add new column to the test cases table.
+8. Sort Test Cases.
+9. Filter Test Cases.
+10. Copy Test Case.
 
 ### Project page (Test Runs & Results tab)
 1. Add Test Run with all test cases.

@@ -20,11 +20,11 @@ public class TestCaseTest extends BaseTest {
             .build();
 
     EditTestCase editTestCase = EditTestCase.builder()
-            .priority("Medium")
+            .priority("High")
             .build();
 
     String projectName = "Test";
-    String testCaseTitle = "Neww";
+    String testCaseTitle = "103";
 
     @Test(testName = "Add a new test case", description = "Check that a new test case can be created from sidebar")
     @Description("Check that test case is created")
@@ -96,5 +96,62 @@ public class TestCaseTest extends BaseTest {
         assertEquals(successEditMessage,
                 "Successfully updated the test cases.",
                 "The test case changes have NOT saved");
+    }
+
+    @Test(testName = "Delete Test Case from Actions bar", description = "Check that Test Case can be deleted using DELETE button in Actions bar")
+    @Description("Check that Test Case is deleted using DELETE button in Actions bar")
+    public void checkDeleteTestCaseFromActions() {
+        loginPage.open()
+                .login(email, password)
+                .openProject(projectName)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .isOpened()
+                .putTickIntoCheckbox(testCaseTitle)
+                .clickOnToolbarButton("Delete");
+        confirmationDeleteTestCaseModal.isOpened()
+                .clickOnButton("Mark as Deleted")
+                .isOpened();
+        boolean result = testCasesListPage.isTestCaseExisting(testCaseTitle);
+        assertFalse(result, "Test case is NOT marked as deleted");
+    }
+
+    @Test(testName = "Add a new column to the test cases table", description = "Check that new column can be added to the test cases table")
+    @Description("Check that a new column can be added to the test cases table")
+    public void checkAddNewColumnToTable() {
+        loginPage.open()
+                .login(email, password)
+                .openProject(projectName)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .clickOnToolbarButton("Columns");
+        selectColumnsModal.isOpened()
+                .clickAddColumnButton()
+                .isOpened()
+                .selectDropdownOption("Estimate")
+                .clickAddColumnButton()
+                .isOpened()
+                .clickButton("Update Columns");
+        testCasesListPage.isOpened();
+        boolean result = testCasesListPage.isColumnAdded("Estimate");
+        assertTrue(result, "The column is NOT added to the table");
+    }
+
+    @Test(testName = "Assign To Test Case", description = "Check that Test Case can be assigned to someone")
+    @Description("Check that Test Case can be assigned to someone")
+    public void checkAssignToValue() {
+        loginPage.open()
+                .login(email, password)
+                .openProject(projectName)
+                .switchTab("Test Cases", TestCasesListPage.class)
+                .isOpened()
+                .putTickIntoCheckbox(testCaseTitle)
+                .clickOnToolbarButton("Assign To")
+                .selectOption("Assign selected");
+        assignToModal.isOpened()
+                .setOptionInDropdown("Anastasia Ivanova")
+                .isOpened()
+                .openTestCase(testCaseTitle)
+                .isOpened()
+                .getTestCaseValue("Assigned To");
+
     }
 }

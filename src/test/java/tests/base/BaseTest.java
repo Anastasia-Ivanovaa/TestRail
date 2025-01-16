@@ -29,6 +29,9 @@ public class BaseTest {
     protected ConfirmationDeleteTestCaseModal confirmationDeleteTestCaseModal;
     protected EditTestCasesSelectedPage editTestCasesSelectedPage;
     protected ReviewChangesModal reviewChangesModal;
+    protected SelectColumnsModal selectColumnsModal;
+    protected AddColumnModal addColumnModal;
+    protected AssignToModal assignToModal;
 
     protected String email = System.getProperty("email");
     protected String password = System.getProperty("password");
@@ -65,6 +68,9 @@ public class BaseTest {
         confirmationDeleteTestCaseModal = new ConfirmationDeleteTestCaseModal(driver);
         editTestCasesSelectedPage = new EditTestCasesSelectedPage(driver);
         reviewChangesModal = new ReviewChangesModal(driver);
+        selectColumnsModal = new SelectColumnsModal(driver);
+        addColumnModal = new AddColumnModal(driver);
+        assignToModal = new AssignToModal(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
