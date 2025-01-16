@@ -29,7 +29,7 @@ public class DashboardPage extends BasePage {
         return new AddProjectPage(driver);
     }
 
-    @Step("Open project from Dashboard page")
+    @Step("Open project {projectName} from Dashboard page")
     public ProjectViewPage openProject(String projectName) {
         log.info("Open project '{}'",projectName);
         By project = By.xpath(String.format(PROJECT_NAME_PATTERN, projectName));
