@@ -150,8 +150,8 @@ public class TestCaseTest extends BaseTest {
                 .setOptionInDropdown("Anastasia Ivanova")
                 .isOpened()
                 .openTestCase(testCaseTitle)
-                .isOpened()
-                .getTestCaseValue("Assigned To");
-
+                .isOpened();
+        String result = testCasePage.getTestCaseValue("Assigned To");
+        assertEquals(result, "Me", "Incorrect value in the field");
     }
 }

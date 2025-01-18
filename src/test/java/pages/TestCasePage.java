@@ -45,14 +45,11 @@ public class TestCasePage extends BasePage {
         return driver.findElement(TEST_CASE_TITLE).getText();
     }
 
-    public void getTestCaseValue(String nameField) {
+    public String getTestCaseValue(String nameField) {
         By value = By.xpath(String.format(TEST_CASE_VALUE, nameField));
         WebElement element = driver.findElement(value);
         String text = element.getText();
-        System.out.println(text);
-
-//        ArrayList<WebElement> testCasesValues = new ArrayList<>(driver.findElements(value));
-
-
+        String[] words = text.split("\n");
+        return words[words.length - 1];
     }
 }
