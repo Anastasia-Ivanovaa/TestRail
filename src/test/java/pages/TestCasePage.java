@@ -18,6 +18,7 @@ public class TestCasePage extends BasePage {
     private final By SUCCESS_MESSAGE = By.xpath("//div[@data-testid='messageSuccessDivBox']");
     private final By EDIT_BUTTON = By.xpath("//a[@data-testid='testCaseEditButton']");
     private final String TEST_CASE_VALUE = "//label[text()='%s']//parent::td";
+    private final By TEST_CASE_ID = By.xpath("//div[@data-testid='contentHeaderId']");
 
     public TestCasePage(WebDriver driver) {
         super(driver);
@@ -45,11 +46,21 @@ public class TestCasePage extends BasePage {
         return driver.findElement(TEST_CASE_TITLE).getText();
     }
 
+    @Step("Get value from {nameField} field")
     public String getTestCaseValue(String nameField) {
+        log.info("Get the value from '{}' field", nameField);
         By value = By.xpath(String.format(TEST_CASE_VALUE, nameField));
         WebElement element = driver.findElement(value);
         String text = element.getText();
         String[] words = text.split("\n");
         return words[words.length - 1];
+    }
+
+    @Step("Get Test Case Id")
+    public int getTestCaseId() {
+        log.info("Get Test Case Id");
+        String id = driver.findElement(TEST_CASE_ID).getText();
+        int result = Integer.parseInt(id.substring(1));
+        return result;
     }
 }

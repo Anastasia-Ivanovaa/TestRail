@@ -32,6 +32,7 @@ public class BaseTest {
     protected SelectColumnsModal selectColumnsModal;
     protected AddColumnModal addColumnModal;
     protected AssignToModal assignToModal;
+    protected DeletePermanentlyModal deletePermanentlyModal;
 
     protected String email = System.getProperty("email");
     protected String password = System.getProperty("password");
@@ -71,6 +72,7 @@ public class BaseTest {
         selectColumnsModal = new SelectColumnsModal(driver);
         addColumnModal = new AddColumnModal(driver);
         assignToModal = new AssignToModal(driver);
+        deletePermanentlyModal = new DeletePermanentlyModal(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
