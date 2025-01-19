@@ -1,4 +1,4 @@
-package tests;
+package tests.ui;
 
 import io.qameta.allure.Description;
 import org.testng.annotations.DataProvider;

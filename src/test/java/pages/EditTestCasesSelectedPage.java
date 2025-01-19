@@ -1,6 +1,6 @@
 package pages;
 
-import dto.EditTestCase;
+import dto.ui.EditTestCase;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
