@@ -2,6 +2,7 @@ package adapters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import utils.PropertyReader;
@@ -20,20 +21,9 @@ public class BaseAPI {
 
     public static RequestSpecification spec =
             given()
+                    .filter(new AllureRestAssured())
                     .log().all()
                     .auth()
                     .preemptive().basic(email, api_key)
                     .contentType(ContentType.JSON);
-
-    public static String testpost(String body, String url) {
-        return spec
-                .body(body)
-                .when()
-                .post(url)
-                .then()
-                .log().all()
-                .statusCode(200)
-                .extract()
-                .asString();
-    }
 }

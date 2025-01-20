@@ -12,7 +12,6 @@ import org.testng.Assert;
 public class ReviewChangesModal extends BasePage{
 
     private final By OK_BUTTON = By.id("confirmDiffSubmit");
-    private final By ADD_COLUMN_BUTTON = By.id("selectColumnsAdd");
 
     public ReviewChangesModal(WebDriver driver) {
         super(driver);

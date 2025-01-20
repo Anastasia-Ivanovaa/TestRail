@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-
 @Log4j2
 public class TestCasePage extends BasePage {
 

@@ -1,11 +1,11 @@
 package pages;
 
 import io.qameta.allure.Step;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-@Slf4j
+@Log4j2
 public class ProjectViewPage extends BasePage {
 
     private final By ADD_TEST_CASE_BUTTON = By.id("sidebar-cases-add");

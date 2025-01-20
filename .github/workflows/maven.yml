@@ -34,7 +34,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test run
-      run: mvn clean test -DsuiteXmlFile='src/test/resources/CrossBrowser.xml' -Demail=$USERNAME -Dpassword=$PASSWORD -Dapi_key=$API_KEY
+      run: mvn clean test -DsuiteXmlFile='src/test/resources/RegressionTest.xml' -Demail=$USERNAME -Dpassword=$PASSWORD -Dapi_key=$API_KEY
 
     - name: Get Allure history
       uses: actions/checkout@v2
