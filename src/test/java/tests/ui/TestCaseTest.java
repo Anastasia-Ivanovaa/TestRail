@@ -84,7 +84,7 @@ public class TestCaseTest extends BaseTest {
     @Test(testName = "Display deleted test case", description = "Check that deleted test case is displayed")
     @Description("Check that deleted test case is displayed in the list after making Display Deleted Test Cases on")
     public void checkDisplayDeletedTestCase() {
-        createTestCase(rq);
+        CreateTestCaseRs testCaseRs = createTestCase(rq);
         loginPage.open()
                 .login(email, password)
                 .openProject(projectName)
@@ -97,12 +97,13 @@ public class TestCaseTest extends BaseTest {
                 .isOpened();
         boolean result = testCasesListPage.isTestCaseDeleted(rq.getTitle());
         assertTrue(result, "Test case is NOT marked as deleted");
+        deleteTestCase(testCaseRs.getId());
     }
 
     @Test(testName = "Edit test case", description = "Check that test case can be edited")
     @Description("Check that test case is edited")
     public void checkEditTestCase() {
-        createTestCase(rq);
+        CreateTestCaseRs testCaseRs = createTestCase(rq);
         loginPage.open()
                 .login(email, password)
                 .openProject(projectName)
@@ -119,7 +120,7 @@ public class TestCaseTest extends BaseTest {
         assertEquals(successEditMessage,
                 "Successfully updated the test cases.",
                 "The test case changes have NOT saved");
-        deleteTestCase(testCasesListPage.getTestCaseId(rq.getTitle()));
+        deleteTestCase(testCaseRs.getId());
     }
 
     @Test(testName = "Delete Test Case from Actions bar", description = "Check that Test Case can be deleted using DELETE button in Actions bar")
@@ -160,6 +161,10 @@ public class TestCaseTest extends BaseTest {
         testCasesListPage.isOpened();
         boolean result = testCasesListPage.isColumnAdded("Estimate");
         assertTrue(result, "The column is NOT added to the table");
+
+        testCasesListPage.clickOnToolbarButton("Columns");
+        selectColumnsModal.removeAddedColumn("Estimate")
+                .clickButton("Update Columns");
     }
 
     @Test(testName = "Assign To Test Case", description = "Check that Test Case can be assigned to someone")

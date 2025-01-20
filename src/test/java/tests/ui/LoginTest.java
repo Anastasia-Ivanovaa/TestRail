@@ -1,6 +1,6 @@
 package tests.ui;
 
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
@@ -10,6 +10,11 @@ import static org.testng.Assert.assertEquals;
 public class LoginTest extends BaseTest {
 
     @Test(testName = "Login into the application", description = "Check positive login")
+    @Epic("Login module")
+    @Story("As a user I want to get Dashboard page after login into application")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://support.testrail.com/hc/en-us/articles/7076810203028-Introduction-to-TestRail#Thedashboard")
+    @Owner("Anastasia Ivanova")
     @Description("Check positive login")
     public void checkValidLogin() {
         loginPage.open()

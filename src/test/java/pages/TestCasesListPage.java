@@ -9,8 +9,6 @@ import org.testng.Assert;
 
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
 @Log4j2
 public class TestCasesListPage extends BasePage {
 
@@ -27,9 +25,6 @@ public class TestCasesListPage extends BasePage {
     private final String DROPDOWN_OPTION = "//div[@id='content-inner']//a[contains(text(),'%s')][contains(@class,'link-tooltip')]";
     private final By SUCCESS_EDIT_MESSAGE = By.xpath("//div[@data-testid='messageSuccessDivBox']");
     private final String COLUMN_NAME = "//tr[contains(@class,'sectionRow')]//span[text()='%s']";
-    private final By TABLE_HEADER = By.xpath("//tr[contains(@class, 'sectionRow')]");
-    private final String TEST_CASE_ID = "//td//span[text() = '%s']//ancestor::tr[contains(@class, 'caseRow')]/a";
-
 
     public TestCasesListPage(WebDriver driver) {
         super(driver);
@@ -82,10 +77,6 @@ public class TestCasesListPage extends BasePage {
     @Step("Check whether test case with title '{testCaseTitle}' is displayed in the list")
     public boolean isTestCaseDeleted(String testCaseTitle) {
         log.info("Checking whether test case '{}' shown in the list of deleted test cases", testCaseTitle);
-//        By testCase = By.xpath(String.format(TEST_CASE_TITLE, testCaseTitle));
-//        WebElement deletedTestCase = driver.findElement(testCase);
-//        wait.until(ExpectedConditions.invisibilityOf(deletedTestCase));
-
         ArrayList<WebElement> testCasesList = new ArrayList<>(driver.findElements(DELETED_TEST_CASE));
         boolean result = false;
         for (WebElement testCaseName : testCasesList) {
@@ -153,15 +144,5 @@ public class TestCasesListPage extends BasePage {
     public TestCasePage openTestCase(String testcaseName) {
         retryClick(String.format(TEST_CASE_TITLE, testcaseName));
         return new TestCasePage(driver);
-    }
-
-    @Step("Get the id of {testCaseTitle} test case")
-    public int getTestCaseId(String testCaseTitle) {
-        log.info("Get the id of '{}' test case", testCaseTitle);
-        By testCase = By.xpath(String.format(TEST_CASE_ID, testCaseTitle));
-        String id = driver.findElement(testCase).getText();
-        int result = Integer.parseInt(id.substring(1));
-        return result;
-        //doesn't work
     }
 }
