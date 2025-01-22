@@ -3,7 +3,6 @@ package adapters;
 import dto.api.project.CreateProjectRq;
 import dto.api.project.CreateProjectRs;
 import dto.api.project.GetProjectsRs;
-import dto.api.testCase.GetTestCaseRs;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
