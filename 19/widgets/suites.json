@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"31afcb9db1fd14e8a9f785503fdb941b","name":"TestRail RegressionTest","statistic":{"failed":1,"broken":0,"skipped":0,"passed":18,"unknown":0,"total":19}}]}
+{"total":1,"items":[{"uid":"31afcb9db1fd14e8a9f785503fdb941b","name":"TestRail RegressionTest","statistic":{"failed":0,"broken":0,"skipped":0,"passed":19,"unknown":0,"total":19}}]}
