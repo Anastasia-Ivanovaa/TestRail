@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateTestCaseRs {
-
     @SerializedName("id")
     @Expose
     private Integer id;
